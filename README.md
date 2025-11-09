@@ -62,6 +62,7 @@ Commands:
   exit
 ```
 1. Enqueueing Jobs
+```bash
 > enqueue
 Enter job id: job-echo
 Enter command: echo hello world from job1
@@ -73,22 +74,26 @@ Enter job id: job-fail
 Enter command: ls /invalid-path
 Enter maxRetries (enter for default): 2
 ? Job enqueued: job-fail
-
+```
 2. Starting a Worker
+```bash
 > worker
 Started 1 worker(s)
 >   hello world
 ? Job job9 completed successfully.
-
+```
 
 3. Checking System Status
+```bash
 > status
 Jobs: pending=0 processing=0 completed=6 failed=0 dead=4
 Active workers: 1
-
+```
 4. Managing the Dead Letter Queue (DLQ)
+```bash
 > dlq list
 Job{id='job1', state='dead', attempts=4}
 Job{id='job2', state='dead', attempts=4}
 Job{id='job3', state='dead', attempts=4}
 Job{id='job4', state='dead', attempts=4}
+```
