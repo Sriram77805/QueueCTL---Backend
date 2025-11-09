@@ -9,8 +9,6 @@ QueueCTL is a minimal, production-grade, CLI-based background job queue system b
 
 This project features a user-friendly interactive prompt (REPL) for all commands.
 
-**➡️ [Link to CLI Demo Video]** (Insert your demo link here)
-
 ---
 
 ## 🚀 Setup and Installation
@@ -23,8 +21,8 @@ Follow these steps to get `queuectl` running on your local machine.
 
 2.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/](https://github.com/)[YOUR_USERNAME]/queuectl.git
-    cd queuectl
+    git clone https://github.com/Sriram77805/QueueCTL---Backend.git
+    cd QueueCTL---Backend
     ```
 
 3.  **Build the Project:**
@@ -35,22 +33,13 @@ Follow these steps to get `queuectl` running on your local machine.
     This will create an executable JAR in the `target/` directory (e.g., `queuectl-1.0.0-jar-with-dependencies.jar`).
 
 4.  **Initialize the Database:**
-    The system uses SQLite, which needs to be initialized. Run the application and use the `init-db` command.
-    ```bash
-    java -jar target/queuectl-1.0.0-jar-with-dependencies.jar
-    ```
-    *Inside the application prompt:*
-    ```text
-    QueueCTL CLI Ready. Type 'help' for commands.
-    > init-db
-    ? Database initialized.
-    > exit
-    ```
+    The system uses SQLite, which needs to be initialized. 
+    
 
 5.  **Run the Application:**
     To start the main interactive prompt, just run the JAR file:
     ```bash
-    java -jar target/queuectl-1.0.0-jar-with-dependencies.jar
+     mvn exec:java
     ```
 
 ---
@@ -62,3 +51,16 @@ Once you run the application, you'll be in the interactive `queuectl` prompt.
 ```text
 QueueCTL CLI Ready. Type 'help' for commands.
 >
+<img width="326" height="162" alt="image" src="https://github.com/user-attachments/assets/7584d320-7cf5-4403-8021-b0340e4b9d0c" />
+> enqueue
+Enter job id: job-echo
+Enter command: echo hello world from job1
+Enter maxRetries (enter for default):
+? Job enqueued: job-echo
+
+> enqueue
+Enter job id: job-fail
+Enter command: ls /invalid-path
+Enter maxRetries (enter for default): 2
+? Job enqueued: job-fail
+
