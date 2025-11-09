@@ -1,10 +1,13 @@
 # QueueCTL - A CLI-Based Job Queue System
 
-![Python Version](https://img.shields.io/badge/python-3.10+-blue.svg)
+![Java Version](https://img.shields.io/badge/java-17+-blue.svg)
+![Maven Version](https://img.shields.io/badge/maven-3.8+-blue.svg)
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
-QueueCTL is a minimal, production-grade, CLI-based background job queue system built in Python. It supports enqueuing jobs, parallel workers, automatic retries with exponential backoff, and a Dead Letter Queue (DLQ) for failed jobs, all backed by a persistent SQLite database.
+QueueCTL is a minimal, production-grade, CLI-based background job queue system built in **Java** using **Maven**. It supports enqueuing jobs, parallel workers (via threads), automatic retries with exponential backoff, and a Dead Letter Queue (DLQ) for failed jobs, all backed by a persistent **SQLite** database.
+
+This project features a user-friendly interactive prompt (REPL) for all commands.
 
 **➡️ [Link to CLI Demo Video]** (Insert your demo link here)
 
@@ -14,74 +17,48 @@ QueueCTL is a minimal, production-grade, CLI-based background job queue system b
 
 Follow these steps to get `queuectl` running on your local machine.
 
-1.  **Clone the repository:**
+1.  **Prerequisites:**
+    * **JDK 17** (or newer)
+    * **Apache Maven** 3.8+
+
+2.  **Clone the repository:**
     ```bash
     git clone [https://github.com/](https://github.com/)[YOUR_USERNAME]/queuectl.git
     cd queuectl
     ```
 
-2.  **Create a virtual environment and install dependencies:**
-    *(Requires Python 3.10+)*
+3.  **Build the Project:**
+    This command will compile the code, run tests, and package the application into an executable "fat" JAR.
     ```bash
-    python3 -m venv venv
-    source venv/bin/activate
-    pip install -r requirements.txt
+    mvn clean package
     ```
-
-3.  **Install the CLI (in editable mode):**
-    This project uses `click` for the CLI. Installing in editable mode links the `queuectl` command to your shell.
-    ```bash
-    pip install -e .
-    ```
+    This will create an executable JAR in the `target/` directory (e.g., `queuectl-1.0.0-jar-with-dependencies.jar`).
 
 4.  **Initialize the Database:**
-    The system uses SQLite, which needs to be initialized.
+    The system uses SQLite, which needs to be initialized. Run the application and use the `init-db` command.
     ```bash
-    queuectl config init-db
+    java -jar target/queuectl-1.0.0-jar-with-dependencies.jar
     ```
-    *Output:*
+    *Inside the application prompt:*
     ```text
-    [queuectl] 💾 Database initialized at: /path/to/queuectl/db/queue.db
+    QueueCTL CLI Ready. Type 'help' for commands.
+    > init-db
+    ? Database initialized.
+    > exit
     ```
 
-5.  **Verify Installation:**
-    You should now have access to the `queuectl` command.
+5.  **Run the Application:**
+    To start the main interactive prompt, just run the JAR file:
     ```bash
-    queuectl --help
-    ```
-    *Output:*
-    ```text
-    Usage: queuectl [OPTIONS] COMMAND [ARGS]...
-
-      Welcome to QueueCTL - A CLI-based job queue system.
-
-    Options:
-      --help  Show this message and exit.
-
-    Commands:
-      config   Manage configuration.
-      dlq      Manage the Dead Letter Queue (DLQ).
-      enqueue  Add a new job to the queue.
-      list     List jobs by state.
-      status   Show a summary of all job states & active workers.
-      worker   Manage worker processes.
+    java -jar target/queuectl-1.0.0-jar-with-dependencies.jar
     ```
 
 ---
 
 ## Usage Examples
 
-Here are the primary commands to interact with `queuectl`.
+Once you run the application, you'll be in the interactive `queuectl` prompt.
 
-### 1. Enqueueing Jobs
-Jobs are enqueued as a JSON string. The `id` and `command` fields are required. `max_retries` is optional and defaults to the system config.
-
-```bash
-# Enqueue a simple job that will succeed
-queuectl enqueue '{"id":"job-echo","command":"echo Hello World from Job 1"}'
-
-# Enqueue a job that will fail (and retry)
-queuectl enqueue '{"id":"job-fail","command":"ls /invalid-path", "max_retries": 2}'
-
-# Enqueue a job that will take time
-queuectl enqueue '{"id":"job-sleep","command":"sleep 5"}'
+```text
+QueueCTL CLI Ready. Type 'help' for commands.
+>
